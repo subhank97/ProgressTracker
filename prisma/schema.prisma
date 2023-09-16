@@ -9,3 +9,37 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id            String         @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+  name          String
+  email         String         @unique
+  password      String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  organizations Organization[]
+  tasks         Task[]
+}
+
+model Organization {
+  id        String   @id @default(dbgenerated("concat('org_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ownerId   String
+  owner     User     @relation(fields: [ownerId], references: [id])
+  tasks     Task[]
+}
+
+model Task {
+  id             String       @id @default(dbgenerated("concat('task_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+  name           String
+  startAt        DateTime
+  endAt          DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  createdBy      String
+  creator        User         @relation(fields: [createdBy], references: [id])
+}
