@@ -1,9 +1,9 @@
-import { getServerSession } from "next-auth"
+import { getUserSession } from "../lib/auth"
 
 
 export default async function Navbar() {
 
-const { user } = await getServerSession()
+const user = await getUserSession()
 console.log('session', user)
 
   return (
