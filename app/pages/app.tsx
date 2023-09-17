@@ -1,9 +1,12 @@
-import Navbar from "./navbar";
+import Activty from "./projects";
+
 
 export default function App() {
+
     return (
         <>
-        <Navbar />
+        <Activty />
         </>
-    )
+
+    );
 }

@@ -11,18 +11,18 @@ datasource db {
 }
 
 model User {
-  id            String         @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
-  name          String?
-  email         String         @unique
-  avatar        String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  organizations Organization[]
-  tasks         Task[]
+  id        String    @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+  name      String?
+  email     String    @unique
+  avatar    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+  tasks     Task[]
 }
 
-model Organization {
-  id        String   @id @default(dbgenerated("concat('org_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+model Project {
+  id        String   @id @default(dbgenerated("concat('prj_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
   name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -32,14 +32,14 @@ model Organization {
 }
 
 model Task {
-  id             String       @id @default(dbgenerated("concat('task_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
-  name           String
-  startAt        DateTime
-  endAt          DateTime?
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id])
-  createdBy      String
-  creator        User         @relation(fields: [createdBy], references: [id])
+  id        String    @id @default(dbgenerated("concat('tsk_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+  name      String
+  startAt   DateTime
+  endAt     DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projectId String
+  project   Project   @relation(fields: [projectId], references: [id])
+  createdBy String
+  creator   User      @relation(fields: [createdBy], references: [id])
 }

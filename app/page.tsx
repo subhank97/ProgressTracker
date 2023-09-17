@@ -1,10 +1,10 @@
-import App from "./pages/app";
+import Navbar from "./pages/navbar";
 
 export default function Home() {
 
   return (
     <main>
-      <App />
+      <Navbar />
     </main>
   )
 }

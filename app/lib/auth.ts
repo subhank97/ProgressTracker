@@ -1,13 +1,23 @@
-import { getServerSession } from "next-auth"
+import { Session, getServerSession } from "next-auth"
+import { JWT } from "next-auth/jwt"
 
-export type AuthUser = {
-    name: string
-    email: string
-    image: string
+type SessionParams = {
+    session: Session
+    token: JWT
 }
 
-export const getUserSession = async (): Promise<AuthUser> => {
-    const session = await getServerSession()
-    if (!session) throw new Error('unauthorized')
-    return session.user as AuthUser
+export const session = async ({ session, token }: SessionParams) => {
+    console.log('Server Session', { session, token })
+    session.user.id = token.id
+    return session
+}
+
+export const getUserSession = async () => {
+    const authUserSession = await getServerSession({
+        callbacks: {
+            session
+        }
+    })
+    if (!authUserSession) throw new Error('unauthorized')
+    return authUserSession.user
 }

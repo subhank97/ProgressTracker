@@ -1,10 +1,11 @@
 import { getUserSession } from "../lib/auth"
+import App from "./app"
 
 
 export default async function Navbar() {
 
-const user = await getUserSession()
-console.log('session', user)
+  const user = await getUserSession()
+  console.log('session', user)
 
   return (
     <>
@@ -36,7 +37,7 @@ console.log('session', user)
 
 
 
-        <div className="w-full h-full flex flex-col justify-between">
+        <div className="w-full h-full flex flex-col justify-start">
           <header className="h-16 w-full flex items-center relative justify-end px-5 space-x-10 bg-gray-800">
             <div className="flex flex-shrink-0 items-center space-x-4 text-white">
 
@@ -45,10 +46,13 @@ console.log('session', user)
                 <div className="text-sm font-regular">{user.email}</div>
               </div>
 
-              <img src={user.image} alt="profile image" className="h-10 w-10 rounded-full cursor-pointer bg-gray-200 border-2 border-blue-400"/>
+              <img src={user.image} alt="profile image" className="h-10 w-10 rounded-full cursor-pointer bg-gray-200 border-2 border-blue-400" />
             </div>
           </header>
 
+          <main>
+            <App />
+          </main>
 
         </div>
 
