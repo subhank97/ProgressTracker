@@ -1,10 +1,10 @@
-
+import App from "./pages/app";
 
 export default function Home() {
 
   return (
     <main>
-      <h1>Hello</h1>
+      <App />
     </main>
   )
 }
