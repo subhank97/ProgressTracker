@@ -1,10 +1,9 @@
-import Navbar from "./pages/navbar";
 
-export default function Home() {
 
-  return (
-    <main>
-      <Navbar />
-    </main>
-  )
+export default async function Homepage() {
+    return (
+        <>
+        <h1>This is the homepage</h1>
+        </>
+    )
 }
